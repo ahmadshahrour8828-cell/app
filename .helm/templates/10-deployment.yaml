@@ -34,7 +34,7 @@ spec:
             - "8000"
           env:
             - name: DB_HOST
-              value: "postgres.database.svc.cluster.local"
+              value: postgres.database.svc.cluster.local
             - name: POSTGRES_USER
               value: appuser
             - name: POSTGRES_PASSWORD
