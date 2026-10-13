@@ -1,7 +1,7 @@
 app:
   ingressClass: nginx
   whitelist: "0.0.0.0/0"
-  image: 715489363281.dkr.ecr.eu-central-1.amazonaws.com/api:531ce37482fb2d1b61cd9db93968820591f15681
+  image: 715489363281.dkr.ecr.eu-central-1.amazonaws.com/api:a4d6fa87fb56130a2b74954a7a89039bc51d988f
   env: dev
   url: localhost
 
