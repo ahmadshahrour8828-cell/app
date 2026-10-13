@@ -3,20 +3,20 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ .Chart.Name }}
+  name: api
+  namespace: dev
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: 50m
     nginx.ingress.kubernetes.io/enable-cors: "true"
 spec:
-  ingressClassName: {{ .Values.app.ingressClass }}
+  ingressClassName: nginx
   rules:
-  - host: {{ $host }}
-    http:
+    - http:
       paths:
-        - path: /
+        - path: /api
           pathType: Prefix
           backend:
             service:
-              name: {{ .Chart.Name }}
+              name: api
               port:
                 name: http
