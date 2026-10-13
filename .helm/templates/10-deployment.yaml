@@ -23,7 +23,7 @@ spec:
       containers:
         - name: app
           imagePullPolicy: IfNotPresent
-          image: 715489363281.dkr.ecr.eu-central-1.amazonaws.com/api:a4d6fa87fb56130a2b74954a7a89039bc51d988f
+          image: 715489363281.dkr.ecr.eu-central-1.amazonaws.com/api:91971434cd699a0a06a1da53a757f4156511e91a
           command:
             - uvicorn
           args:
