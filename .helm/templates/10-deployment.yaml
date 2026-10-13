@@ -35,16 +35,12 @@ spec:
           env:
             - name: DB_HOST
               value: "postgres.database.svc.cluster.local"
-            - name: DB_USER
-              valueFrom:
-                secretKeyRef:
-                  name: postgres-secret
-                  key: POSTGRES_USER
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: postgres-secret
-                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_USER
+              value: appuser
+            - name: POSTGRES_PASSWORD
+              value: 2hJVsI19ev4
+            - name: POSTGRES_DB
+              value: appdb
             - name: DB_PORT
               value: "5432"
           ports:
