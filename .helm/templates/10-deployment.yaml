@@ -19,14 +19,6 @@ spec:
     metadata:
       labels:
         app: api
-      annotations:
-        vault.hashicorp.com/agent-inject: "true"
-        vault.hashicorp.com/role: "api"
-        vault.hashicorp.com/agent-inject-secret-db-url: "secret/data/postgres"
-        vault.hashicorp.com/agent-inject-template-db-url: |
-          {{- with secret "secret/data/postgres" -}}
-          postgresql+psycopg://{{ .Data.data.username }}:{{ .Data.data.password }}@postgres.dev.svc.cluster.local:5432/appdb
-          {{- end }}
     spec:
       containers:
         - name: app
