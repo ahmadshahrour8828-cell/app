@@ -33,11 +33,20 @@ spec:
             - --port
             - "8000"
           env:
-            - name: DATABASE_URL
+            - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
                   name: api-db
-                  key: DATABASE_URL
+                  key: username
+
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: api-db
+                  key: password
+
+            - name: DATABASE_URL
+              value: "postgresql+psycopg://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@postgres.database.svc.cluster.local:5432/appdb"
             #- name: DATABASE_URL
             #  value: postgresql+psycopg://appuser:2hJVsI19ev4@postgres.database.svc.cluster.local:5432/appdb
             #- name: POSTGRES_USER
