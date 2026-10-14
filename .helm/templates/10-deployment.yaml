@@ -19,6 +19,14 @@ spec:
     metadata:
       labels:
         app: api
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/role: "api"
+        vault.hashicorp.com/agent-inject-secret-db-url: "secret/data/postgres"
+        vault.hashicorp.com/agent-inject-template-db-url: |
+          {{- with secret "secret/data/postgres" -}}
+          postgresql+psycopg://{{ .Data.data.username }}:{{ .Data.data.password }}@postgres.dev.svc.cluster.local:5432/appdb
+          {{- end }}
     spec:
       containers:
         - name: app
@@ -34,15 +42,20 @@ spec:
             - "8000"
           env:
             - name: DATABASE_URL
-              value: postgresql+psycopg://appuser:2hJVsI19ev4@postgres.database.svc.cluster.local:5432/appdb
-            - name: POSTGRES_USER
-              value: appuser
-            - name: POSTGRES_PASSWORD
-              value: 2hJVsI19ev4
-            - name: POSTGRES_DB
-              value: appdb
-            - name: DB_PORT
-              value: "5432"
+              valueFrom:
+                secretKeyRef:
+                  name: api-db
+                  key: DATABASE_URL
+            #- name: DATABASE_URL
+            #  value: postgresql+psycopg://appuser:2hJVsI19ev4@postgres.database.svc.cluster.local:5432/appdb
+            #- name: POSTGRES_USER
+            #  value: appuser
+            #- name: POSTGRES_PASSWORD
+            #  value: 2hJVsI19ev4
+            #- name: POSTGRES_DB
+            #  value: appdb
+            #- name: DB_PORT
+            #  value: "5432"
           ports:
             - containerPort: 8000
               name: http
